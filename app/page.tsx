@@ -1,5 +1,6 @@
 import Image from "next/image";
-import TaskManager from "./components/TaskManager";
+import TaskManager from "@/components/ui/TaskManager";
+
 
 export default function Home() {
   return (
