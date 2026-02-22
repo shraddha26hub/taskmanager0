@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import ArchiveTable from "@/components/ArchiveTable";
 import { Task } from "@/types/task";
@@ -17,7 +16,6 @@ export default function ArchivePage() {
     setArchivedTasks(parsed);
   }
 }, []);
-
 
   return (
     <div className="p-6">

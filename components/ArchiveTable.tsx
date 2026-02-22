@@ -1,13 +1,13 @@
 "use client";
-
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useState, useMemo } from "react";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { useState, useMemo, useEffect } from "react";
 import { Task } from "@/types/task";
 
 type Props = {
-  archivedTasks: Task[];
+  archivedTasks: Task[]; 
 };
 
 export default function ArchiveTable({ archivedTasks }: Props) {
@@ -21,22 +21,19 @@ export default function ArchiveTable({ archivedTasks }: Props) {
     let data = archivedTasks.filter((t) =>
       t.title.toLowerCase().includes(search.toLowerCase())
     );
+
     data.sort((a, b) => {
       if (sortKey === "title") {
         return sortAsc
           ? a.title.localeCompare(b.title)
           : b.title.localeCompare(a.title);
       } else {
-        const aTime = a.completedAt
-  ? new Date(a.completedAt).getTime()
-  : 0;
-
-        const bTime = b.completedAt
-        ? new Date(b.completedAt).getTime() 
-        : 0;
+        const aTime = a.completedAt ? new Date(a.completedAt).getTime() : 0;
+        const bTime = b.completedAt ? new Date(b.completedAt).getTime() : 0;
         return sortAsc ? aTime - bTime : bTime - aTime;
       }
     });
+
     return data;
   }, [archivedTasks, search, sortKey, sortAsc]);
 
@@ -48,15 +45,15 @@ export default function ArchiveTable({ archivedTasks }: Props) {
   const totalPages = Math.ceil(filteredTasks.length / pageSize);
 
   return (
-    <div className="space-y-4">
-      <div className="flex justify-between items-center">
+    <Card className="w-full max-w-md mx-auto p-6 space-y-4 rounded-2xl shadow-md">
+      <div className="flex flex-col sm:flex-row sm:justify-between gap-2">
         <Input
           placeholder="Search tasks..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="max-w-xs"
+          className="flex-1"
         />
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <Button
             size="sm"
             onClick={() => {
@@ -111,15 +108,11 @@ export default function ArchiveTable({ archivedTasks }: Props) {
           <Button size="sm" onClick={() => setPage((p) => Math.max(p - 1, 1))} disabled={page === 1}>
             Prev
           </Button>
-          <Button
-            size="sm"
-            onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
-            disabled={page === totalPages || totalPages === 0}
-          >
+          <Button size="sm" onClick={() => setPage((p) => Math.min(p + 1, totalPages))} disabled={page === totalPages || totalPages === 0}>
             Next
           </Button>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }

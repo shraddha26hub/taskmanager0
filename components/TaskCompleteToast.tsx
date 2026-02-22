@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 import { Button } from "@/components/ui/button";

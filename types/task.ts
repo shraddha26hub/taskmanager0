@@ -4,6 +4,7 @@ export type Task = {
   completed: boolean;
   completedAt?: Date;
   timerRunning?: boolean;
-  timeLeft?: number;
+  timeLeft: number;
   dueDate?:Date,
+  timerStarted?:boolean,
 };

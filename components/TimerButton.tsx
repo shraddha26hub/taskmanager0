@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 
 type Props = {
@@ -7,7 +6,6 @@ type Props = {
   onStartPause: () => void;
   onStop?: () => void;
 };
-
 export default function TimerButton({ isRunning, onStartPause, onStop }: Props) {
   return (
     <div className="flex gap-2">
